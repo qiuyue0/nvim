@@ -18,9 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 -- 加载所有插件
 require("lazy").setup("plugins", {
     checker = {
-        enabled = true,
-        concurrency = nil,
-        notify = true,
-        period = 60,
+        enabled = false,
     },
 })
