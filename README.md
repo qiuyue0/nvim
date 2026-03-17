@@ -65,6 +65,20 @@ lua/plugins/
 └── tmux.lua        # Tmux 导航
 ```
 
+## 首次安装后需要执行（Treesitter）
+
+`nvim-treesitter` 已改为不自动安装 parser，首次安装配置后请手动执行一次：
+
+```vim
+:TSInstall c lua vim vimdoc query python bash cpp json javascript sql yaml
+```
+
+后续更新 parser 可使用：
+
+```vim
+:TSUpdate
+```
+
 ## 添加新插件的步骤
 
 ### 方式1：添加到现有分组文件
