@@ -21,7 +21,7 @@ return {
     event = "VeryLazy",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "jedi_language_server" },
+        ensure_installed = { "pyright" },
       })
     end,
   },
@@ -31,8 +31,25 @@ return {
     dependencies = { "mason-lspconfig.nvim" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      vim.lsp.config("jedi_language_server", {})
-      vim.lsp.enable("jedi_language_server")
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+      if ok then
+        capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+      end
+
+      vim.lsp.config("pyright", {
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+      })
+      vim.lsp.enable("pyright")
     end,
   },
 }
